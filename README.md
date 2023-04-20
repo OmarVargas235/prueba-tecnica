@@ -2,8 +2,8 @@
 > prueba tecnica.
 
 ## Herramientas que tienes que tener instaladas en tu sistema operativo
+* git __v2.34.1__
 * nodejs __v16.13.1__
-* typescript __v4.5.4__
 
 # Instalación
 * ```npm install``` o ```yarn install ```
