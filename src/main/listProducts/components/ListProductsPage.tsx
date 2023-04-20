@@ -4,6 +4,8 @@ import Table from "../../../layauts/table/Table";
 import Modal from "../../../layauts/modal/Modal";
 import CotainerIcon from "../../../layauts/cotainerIcon/CotainerIcon";
 import Button from "../../../layauts/button/Button";
+import { Text } from "../../../layauts/Text";
+import Toggle from "./TogglePage";
 
 // 3.- estilos
 import { Container } from "../styled";
@@ -25,12 +27,17 @@ interface Props {
     isDelte: boolean;
     code: string;
     setIsDelete: (v: boolean) => void;
+    toggle: () => void;
 }
 
-const ListProductsPage = ({ handleClick, edit, products, deleteProduct, isDelte, code, setIsDelete }: Props): JSX.Element => {
+const ListProductsPage = ({ handleClick, edit, products, deleteProduct, isDelte, code, setIsDelete, toggle }: Props): JSX.Element => {
 
     return <div className="d-flex justify-content-center">
         <Container>
+            <Toggle
+                handleClick={toggle}
+            />
+
             <Table
                 thead={thead}
                 tbody={tbody(products, edit, deleteProduct)}
@@ -52,7 +59,7 @@ const ListProductsPage = ({ handleClick, edit, products, deleteProduct, isDelte,
                     isCheck={false}
                 />
                 
-                <p className="text-center">Estas seguro de eliminar este producto?</p>
+                <Text className="text-center mb-3">Estas seguro de eliminar este producto?</Text>
 
                 <div className='d-flex justify-content-center'>
                     <Button

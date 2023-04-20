@@ -23,7 +23,7 @@ interface ITr {
 }
 
 export const Container = styled.section`
-    border: 1px solid #BABCCB;
+    border: 1px solid ${props => props.theme.border};
     border-radius: 10px;
 
     .border-radius {
@@ -57,7 +57,7 @@ export const Container = styled.section`
 `;
 
 export const Thead = styled.article<IThead>`
-    color: ${props => props.color ?? '#22285A'};
+    color: ${props => props.color ?? props.theme.thText};
     font-size: ${props => props.size ?? '16px'};
     font-weight: ${props => props.weight ?? 'bold'};
     border-radius: 5px;
@@ -72,6 +72,7 @@ export const TBody = styled.article`
 `;
 
 export const Tr = styled.div<ITr>`
+    color: ${props => props.theme.secondary};
     font-size: ${props => props.size ?? '16px'};
     text-align: ${props => props.align};
     display: grid;
@@ -79,7 +80,7 @@ export const Tr = styled.div<ITr>`
 `;
 
 export const Th = styled.div<ITh>`
-    background-color: ${props => props.bgColor ?? '#F3F6F9'};
+    background-color: ${props => props.bgColor ?? props.theme.th};
 
     ${props => props.isFirst ? `border-top-left-radius: 5px;     border-bottom-left-radius: 5px;` : ''};
     ${props => props.isLast ? `border-top-right-radius: 5px;     border-bottom-right-radius: 5px;` : ''};
@@ -103,7 +104,8 @@ export const BoxNumberPaginate = styled.div<{ isCurrent: boolean; }>`
         props => props.isCurrent
         ? `
             color: white;
-            background-color: #591df1;
+            background-color: ${props.theme.button};
+            box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
         ` : `
             background-color: transparent;
             color: black;
@@ -112,6 +114,8 @@ export const BoxNumberPaginate = styled.div<{ isCurrent: boolean; }>`
 
     &:hover {
         color: white;
-        background-color: #591df1;
+        background-color: ${props => props.theme.button};
+        filter: brightness(0.9);
+        box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
     }
 `;

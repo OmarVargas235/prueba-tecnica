@@ -27,7 +27,6 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
         onSubmit={onSubmit}
     >
         <Text
-            color='#006299'
             size='25px'
             weight='bold'
             className='mb-4 ml-3'

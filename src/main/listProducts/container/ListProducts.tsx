@@ -10,6 +10,7 @@ import { RootState } from '../../../redux/reducers';
 import { setIsActiveModalProduct, setIsEditProduct, setEditProduct } from '../../../redux/reducers/reducerUtils';
 import { setDeleteProduct, IInitState as Product } from '../../../redux/reducers/reducerProduct';
 import { setIsActiveLoading } from '../../../redux/reducers/reducerBlockUI';
+import { setActiveDark, IInitState as Theme } from '../../../redux/reducers/reducerTheme';
 
 // 4.- interfaces
 import { DataTable } from '../../../helpers/interface';
@@ -25,6 +26,7 @@ const ListProducts = (): JSX.Element => {
     const [code, setCode] = useState<string>('');
 
     const { products } = useSelector<RootState, Product>(state => state.products);
+    const { isDark } = useSelector<RootState, Theme>(state => state.theme);
 
     const handleClick = (): unknown => dispatch(setIsActiveModalProduct(true));
 
@@ -53,6 +55,14 @@ const ListProducts = (): JSX.Element => {
         }, 1000);
     }
 
+    const toggle = (): void => {
+
+        const isDarkString = !isDark as unknown as string;
+
+        dispatch(setActiveDark(!isDark));
+        window.localStorage.setItem('theme', isDarkString);
+    }
+
     return <ListProductsPage
         handleClick={handleClick}
         edit={edit}
@@ -61,6 +71,7 @@ const ListProducts = (): JSX.Element => {
         isDelte={isDelte}
         code={code}
         setIsDelete={setIsDelete}
+        toggle={toggle}
     />;
 }
 

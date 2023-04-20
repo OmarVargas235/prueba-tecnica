@@ -103,7 +103,9 @@ const FormCreateEdit = ({ closeModal }: Props): JSX.Element => {
             dispatch(setIsActiveLoading(false));
             closeModal(false);
 
-            alert({ dispatch, isAlertSuccess: true, message: 'Producto creado con exito', isAlertWarning: false });
+            const message = isEditProduct ? 'Producto editado con exito' : 'Producto creado con exito';
+
+            alert({ dispatch, isAlertSuccess: true, message, isAlertWarning: false });
 
         }, 1000);
     }

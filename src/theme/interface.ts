@@ -1,12 +1,11 @@
 export interface ThemeData {
     primary: string;
     secondary: string;
-    text: string;
-    bg: {
-        bg1: string;
-        bg2: string;
-        bg3: string;
-    },
+    button: string;
+    buttonDisabled: string;
     border: string;
     label: string;
+    th: string;
+    thText: string;
+    actions: { edit: string; delete: string };
 }

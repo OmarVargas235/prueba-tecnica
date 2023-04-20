@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
         justify-content: center;
         align-items: center;
         min-height: 100vh;
+        background-color: ${props => props.theme.primary};
 	}
 `;
 
@@ -43,13 +44,13 @@ function App(): JSX.Element {
     }, []);
 
     return <Suspense fallback={<Spinner isLoading={true} />}>
-
-        <GlobalStyle />
-
-        <Spinner />
-        <Alert />
-
         <ThemeProvider theme={isDark ? themeDark : themeLight}>
+
+            <GlobalStyle />
+
+            <Spinner />
+            <Alert />
+
             <ListProducts />
             <FormProducts />
         </ThemeProvider>

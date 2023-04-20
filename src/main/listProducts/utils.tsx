@@ -6,7 +6,6 @@ import { DataTable } from "../../helpers/interface";
 
 export const thead = ['Codigo', 'Nombre', 'Descripción', 'Cantidad', 'Creacion', 'Acciones'];
 
-// export const tbody = (dataUsers: DataTable[], setIsOpen: (v: boolean) => void, dispatch: Dispatch, deleteUser: (v: number, isDelete?: boolean) => Promise<void>): DataBody => {
 export const tbody = (data: DataTable[], edit: (v: DataTable) => void, deleteProduct: (v: string, isModal: boolean) => void): DataBody => {
 
     return data.map((v, index): any => (
@@ -14,16 +13,14 @@ export const tbody = (data: DataTable[], edit: (v: DataTable) => void, deletePro
             v.code, v.name, v.description, v.stock, v.date,
             <div key={2} className='d-flex justify-content-center'>
                 <ContainerIconAction
-                    className='mr-3 pointer'
-                    color='#DFECFF'
+                    className='mr-3 pointer edit'
                     onClick={() => edit(v)}
                 >
                     <BiEditAlt size={20} />
                 </ContainerIconAction>
 
                 <ContainerIconAction
-                    className='pointer'
-                    color='#FFDFDF'
+                    className='pointer delete'
                     onClick={() => deleteProduct(v.code, true)}
                 >
                     <IoCloseOutline size={20} />

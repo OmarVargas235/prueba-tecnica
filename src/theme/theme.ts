@@ -1,27 +1,25 @@
 import { ThemeData } from "./interface";
 
 export const themeLight: ThemeData  = {
-    primary: "#FFD970",
+    primary: "white",
     secondary: "#232229",
-    text: "#827E81",
-    bg: {
-        bg1: 'rgba(0, 0, 0, .3)',
-        bg2: 'rgba(254, 254, 254, .9)',
-        bg3: 'white',
-    },
-    border: 'black',
+    button: '#591DF1',
+    buttonDisabled: '#E1E1E1',
+    border: '#BABCCB',
     label: '#656E93',
+    th: '#F3F6F9',
+    thText: '#22285A',
+    actions: { edit: '#DFECFF', delete: '#FFDFDF' },
 }
 
 export const themeDark: ThemeData  = {
-    primary: "#BB86FC",
+    primary: "#808FC7",
     secondary: "white",
-    text: "#827E81",
-    bg: {
-        bg1: 'rgba(254, 254, 254, .3)',
-        bg2: 'rgba(35, 34, 41, .9)',
-        bg3: '#232229',
-    },
+    button: '#5D6BAA',
+    buttonDisabled: 'lightgray',
     border: 'white',
     label: 'white',
+    th: '#3C3C3C',
+    thText: 'white',
+    actions: { edit: '#DE8200', delete: '#B84C4B' },
 }

@@ -86,7 +86,7 @@ const Alert = (): JSX.Element => {
                                     />
                             }
 
-                            <Text className='my-4 text-center' color='#303030' size='18px'>{messageAlert}</Text>
+                            <Text className='my-4 text-center' size='18px'>{messageAlert}</Text>
 
                             <Button
                                 dataClose="close"

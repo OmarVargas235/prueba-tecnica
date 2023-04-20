@@ -130,14 +130,12 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
                     add !== undefined
                     ? <Button
                         classes='mr-2 add'
-                        color='#1987FB'
                         handleClick={() => add()}
                     >Nuevo Producto</Button>
                     : null
                 }
 
                 <Button
-                    color='#1987FB'
                     handleClick={() => refresh()}
                     edge='end'
                     icon={<BiRefresh size={18} />}
@@ -203,7 +201,6 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
 
             <div className='d-flex align-items-center'>
                 <Button
-                    color='#1987FB'
                     classes='btn-table'
                     handleClick={prev}
                     disabled={currentPage === ValuesDefault.init || dataBody.length === 0}
@@ -222,7 +219,6 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
                 </div>
 
                 <Button
-                    color='#1987FB'
                     classes='btn-table'
                     handleClick={next}
                     disabled={currentPage === totalPage || dataBody.length === 0}
