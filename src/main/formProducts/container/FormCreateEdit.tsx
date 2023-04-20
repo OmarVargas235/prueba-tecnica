@@ -19,7 +19,7 @@ import { saveProduct, setEditProduct, IInitState as Product } from '../../../red
 import { setIsActiveLoading } from '../../../redux/reducers/reducerBlockUI';
 
 // 6.- utils
-import { alert } from '../../../helpers/utils';
+import { alert, setDate } from '../../../helpers/utils';
 
 interface Props {
     closeModal: (v: boolean) => void;
@@ -36,14 +36,13 @@ const FormCreateEdit = ({ closeModal }: Props): JSX.Element => {
 
     const [form, setForm] = useState<Model>({
         code: "",
-        date: '2023-04-20',
-        // date: new Date().toLocaleDateString().split('/').reverse().join('/').replaceAll('/', '-'),
+        date: setDate(new Date()),
         description: '',
         name: '',
         stock: 0
     });
 
-    useEffect(() => setValuesDefault('date', '2023-04-20'), []);
+    useEffect(() => setValuesDefault('date', setDate(new Date())), []);
 
     useEffect(() => {
 
@@ -51,7 +50,7 @@ const FormCreateEdit = ({ closeModal }: Props): JSX.Element => {
         
         setForm({
             code: dataProduct.code,
-            date: '2023-04-20',
+            date: setDate(new Date()),
             description: dataProduct.description,
             name: dataProduct.name,
             stock: dataProduct.stock
@@ -60,7 +59,7 @@ const FormCreateEdit = ({ closeModal }: Props): JSX.Element => {
         setValuesDefault('code', dataProduct.code);
         setValuesDefault('description', dataProduct.description ?? '');
         setValuesDefault('name', dataProduct.name);
-        setValuesDefault('date', '2023-04-20');
+        setValuesDefault('date', setDate(new Date()));
         setValuesDefault('stock', dataProduct.stock);
 
     }, [dataProduct, isEditProduct]);
@@ -92,6 +91,9 @@ const FormCreateEdit = ({ closeModal }: Props): JSX.Element => {
         
         if (isCode && !isEditProduct)
             return alert({ dispatch, isAlertSuccess: false, message: 'Ya existe un producto con el mismo codigo', isAlertWarning: true });
+
+        if (form.code.length < 4)
+            return alert({ dispatch, isAlertSuccess: false, message: 'El codigo debe de tener un mínimo de 4 digitos', isAlertWarning: true });
 
         dispatch(setIsActiveLoading(true));
 

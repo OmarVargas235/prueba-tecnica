@@ -19,7 +19,7 @@ const FormPage = ({ isOpen, closeModal }: Props): JSX.Element => {
             open={isOpen}
             textBtn=''
             isButton={false}
-            width="700px"
+            className="modal"
         >
             <FormCreateEdit
                 closeModal={closeModal}

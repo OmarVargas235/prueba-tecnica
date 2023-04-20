@@ -38,20 +38,20 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
                 handleChange={e => handleChange(e, setForm, form)}
                 name='code'
                 value={form.code}
-                classes='col-6'
+                classes='col-sm-6'
                 classesContainerInput='input-radius'
                 label='Codigo'
                 isError={errors.includes('code')}
                 helperText={errors.includes('code') ? "Codigo requerido" : ""}
                 colorHelperText="#D22F2F"
-                isReadOnly={true}
+                isReadOnly={isEdit}
             />
 
             <TextField
                 handleChange={e => handleChange(e, setForm, form)}
                 name='name'
                 value={form.name}
-                classes='col-6'
+                classes='col-sm-6 mt-4 mt-sm-0'
                 classesContainerInput='input-radius'
                 label='Nombre'
                 isError={errors.includes('name')}
@@ -63,7 +63,7 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
                 handleChange={e => handleChange(e, setForm, form)}
                 name='description'
                 value={form.description ?? ''}
-                classes={`col-6 mt-${errors.includes('stock') ? 0 : 4}`}
+                classes={`col-sm-6 mt-${errors.includes('stock') ? 0 : 4}`}
                 classesContainerInput='input-radius'
                 label='Descripción'
             />
@@ -73,7 +73,7 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
                 handleChange={e => handleChange(e, setForm, form)}
                 name='stock'
                 value={form.stock}
-                classes='col-6 mt-4'
+                classes='col-sm-6 mt-4'
                 classesContainerInput='input-radius w-100'
                 label='Cantidad'
                 isError={errors.includes('stock')}

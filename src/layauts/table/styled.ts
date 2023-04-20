@@ -42,6 +42,18 @@ export const Container = styled.section`
             font-size: 12px;
         }
     }
+
+    .paginate {
+        @media (max-width: 425px) {
+            flex-direction: column;
+            align-items: center !important;
+
+            p {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+    }
 `;
 
 export const Thead = styled.article<IThead>`

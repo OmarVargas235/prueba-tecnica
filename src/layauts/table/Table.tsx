@@ -28,7 +28,7 @@ interface Props {
 
 enum ValuesDefault {
     init = 1,
-    end = 10
+    end = 5
 }
 
 const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', refresh, add=undefined }: Props): JSX.Element => {
@@ -94,13 +94,14 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
     const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
 
         const text: string = e.target.value.toLowerCase().trim();
+
         const filter = tbody.filter(arr => {
 
-            const copyArr: Array<string | JSX.Element> = JSON.parse(JSON.stringify(arr));
-            copyArr.pop();
+            const sliceLastElement = arr.slice(0, -1);
+            const copyArr: string[] = JSON.parse(JSON.stringify(sliceLastElement));
 
-            return copyArr.filter(v => typeof v === 'object'
-                ? v.props.elements[0].name.toLowerCase().trim().includes(text)
+            return copyArr.filter(v => v == null
+                ? false
                 : v.toLowerCase().trim().includes(text)
             ).length > 0;
         });
@@ -108,11 +109,12 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
         setSeacrh(text);
         setDataBody(filter);
         setInit(1);
+        setCurrentPage(1);
         setEnd(currentTotal);
     }
 
     return <Container className='p-4'>
-        <div className='d-flex justify-content-between align-items-center mb-4'>
+        <div className='d-flex flex-column flex-sm-row justify-content-between align-items-center mb-4'>
             <TextField
                 handleChange={handleSearch}
                 name='search'
@@ -120,12 +122,17 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
                 icon={<AiOutlineSearch size={25} />}
                 edge="start"
                 classesContainerInput='border-radius'
+                classes="search"
             />
 
-            <div className='d-flex'>
+            <div className='d-flex container-buttons'>
                 {
                     add !== undefined
-                    ? <Button classes='mr-2' color='#1987FB' handleClick={() => add()}>Nuevo Producto</Button>
+                    ? <Button
+                        classes='mr-2 add'
+                        color='#1987FB'
+                        handleClick={() => add()}
+                    >Nuevo Producto</Button>
                     : null
                 }
 
@@ -134,11 +141,12 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
                     handleClick={() => refresh()}
                     edge='end'
                     icon={<BiRefresh size={18} />}
+                    classes='refresh'
                 >Refrescar</Button>
             </div>
         </div>
 
-        <div className='container-table'>
+        <div className='container-table d-flex flex-column align-items-center'>
             <Thead
                 columns={thead.length}
                 align={alignHead}
@@ -177,13 +185,13 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
             </TBody>
         </div>
 
-        <div className='d-flex align-items-start justify-content-between mt-4'>
+        <div className='d-flex align-items-start justify-content-between mt-4 paginate'>
             <Select
                 options={[
+                    { label: '5', value: 5 },
                     { label: '10', value: 10 },
-                    { label: '25', value: 25 },
-                    { label: '50', value: 50 },
-                    { label: '100', value: 100 },
+                    { label: '20', value: 20 },
+                    { label: '30', value: 30 },
                 ]}
                 handleChange={handleSelect}
                 className='mr-1'

@@ -29,41 +29,43 @@ interface Props {
 
 const ListProductsPage = ({ handleClick, edit, products, deleteProduct, isDelte, code, setIsDelete }: Props): JSX.Element => {
 
-    return <Container>
-        <Table
-            thead={thead}
-            tbody={tbody(products, edit, deleteProduct)}
-            width='180px'
-            refresh={()=> window.location.reload()}
-            add={handleClick}
-        />
-
-        <Modal
-            closeModal={(v) => setIsDelete(v)}
-            open={isDelte}
-            textBtn=''
-            isButton={false}
-            classess='modal-delete'
-            width='300px'
-        >
-            <CotainerIcon
-                icon={<MdDelete size={30} />}
-                isCheck={false}
+    return <div className="d-flex justify-content-center">
+        <Container>
+            <Table
+                thead={thead}
+                tbody={tbody(products, edit, deleteProduct)}
+                width='180px'
+                refresh={()=> window.location.reload()}
+                add={handleClick}
             />
-            
-            <p className="text-center">Estas seguro de eliminar este producto?</p>
 
-            <div className='d-flex justify-content-center'>
-                <Button
-                    classes='mr-2'
-                    color='#1e7e34'
-                    handleClick={() => {void deleteProduct(code, false)}}
-                >Aceptar</Button>
+            <Modal
+                closeModal={(v) => setIsDelete(v)}
+                open={isDelte}
+                textBtn=''
+                isButton={false}
+                classess='modal-delete'
+                width='300px'
+            >
+                <CotainerIcon
+                    icon={<MdDelete size={30} />}
+                    isCheck={false}
+                />
                 
-                <Button color='#dc3545' dataClose='close'>Rechazar</Button>
-            </div>
-        </Modal>
-    </Container>;
+                <p className="text-center">Estas seguro de eliminar este producto?</p>
+
+                <div className='d-flex justify-content-center'>
+                    <Button
+                        classes='mr-2'
+                        color='#1e7e34'
+                        handleClick={() => {void deleteProduct(code, false)}}
+                    >Aceptar</Button>
+                    
+                    <Button color='#dc3545' dataClose='close'>Rechazar</Button>
+                </div>
+            </Modal>
+        </Container>
+    </div>;
 }
 
 export default ListProductsPage;

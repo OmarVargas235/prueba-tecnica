@@ -15,3 +15,16 @@ export const alert = ({ dispatch, isAlertSuccess, message, isAlertWarning=false 
     dispatch(setIsAlertWarning(isAlertWarning));
     dispatch(setMessageAlert(message));
 }
+
+export const setDate = (date: Date): string => {
+
+    const d = date.toLocaleDateString().split('/').reverse();
+    const year = d[0];
+    const month = d[1];
+    const day = d[2];
+
+    const m = month.length === 1 ? `0${month}` : month;
+    const dayTwo = day.length === 1 ? `0${day}` : day;
+
+    return `${year}-${m}-${dayTwo}`;
+}
