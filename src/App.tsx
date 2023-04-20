@@ -1,5 +1,5 @@
 // 1.- librerias
-import { Suspense, useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,17 +7,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveDark, IInitState } from './redux/reducers/reducerTheme';
 import { RootState } from './redux/store';
 
-// 4.- theme
+// 3.- theme
 import { themeLight, themeDark } from './theme/theme';
 
-// 5.- components
+// 4.- components
 import Spinner from "./layauts/spinner/Spinner";
+const ListProducts = lazy(async () => await import("./main/listProducts"));
+const FormProducts = lazy(async () => await import("./main/formProducts"));
 
 const GlobalStyle = createGlobalStyle`
 	body {
 		margin: 0;
 		padding: 0;
         background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
 	}
 `;
 
@@ -40,7 +46,8 @@ function App(): JSX.Element {
         <GlobalStyle />
 
         <ThemeProvider theme={isDark ? themeDark : themeLight}>
-            <div>Hola</div>
+            <ListProducts />
+            <FormProducts />
         </ThemeProvider>
     </Suspense>;
 }

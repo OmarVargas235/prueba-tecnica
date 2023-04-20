@@ -23,8 +23,7 @@ interface Props {
     alignHead?: 'left' | 'center' | 'right';
     alignBody?: 'left' | 'center' | 'right';
     refresh: () => void;
-    addUser: () => void;
-    isNewUser?: boolean;
+    add?: () => void;
 }
 
 enum ValuesDefault {
@@ -32,7 +31,7 @@ enum ValuesDefault {
     end = 10
 }
 
-const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', refresh, addUser, isNewUser=false }: Props): JSX.Element => {
+const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', refresh, add=undefined }: Props): JSX.Element => {
 
     const [currentTotal, setCurrentTotal] = useState<number>(ValuesDefault.end);
     const [init, setInit] = useState<number>(ValuesDefault.init);
@@ -125,8 +124,8 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
 
             <div className='d-flex'>
                 {
-                    isNewUser
-                    ? <Button classes='mr-2' color='#1987FB' handleClick={() => addUser()}>Nuevo usuario</Button>
+                    add !== undefined
+                    ? <Button classes='mr-2' color='#1987FB' handleClick={() => add()}>Nuevo Producto</Button>
                     : null
                 }
 
@@ -199,7 +198,7 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
                     color='#1987FB'
                     classes='btn-table'
                     handleClick={prev}
-                    disabled={currentPage === ValuesDefault.init}
+                    disabled={currentPage === ValuesDefault.init || dataBody.length === 0}
                 >Anterior</Button>
                 
                 <div className='d-flex mx-1'>
@@ -218,7 +217,7 @@ const Table = ({ thead, tbody, width, alignHead='center', alignBody='center', re
                     color='#1987FB'
                     classes='btn-table'
                     handleClick={next}
-                    disabled={currentPage === totalPage}
+                    disabled={currentPage === totalPage || dataBody.length === 0}
                 >Siguiente</Button>
             </div>
         </div>
