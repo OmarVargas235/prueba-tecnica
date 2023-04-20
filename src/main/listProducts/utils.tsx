@@ -7,7 +7,7 @@ import { DataTable } from "../../helpers/interface";
 export const thead = ['Codigo', 'Nombre', 'Descripción', 'Cantidad', 'Creacion', 'Acciones'];
 
 // export const tbody = (dataUsers: DataTable[], setIsOpen: (v: boolean) => void, dispatch: Dispatch, deleteUser: (v: number, isDelete?: boolean) => Promise<void>): DataBody => {
-export const tbody = (data: DataTable[], edit: (v: DataTable) => void): DataBody => {
+export const tbody = (data: DataTable[], edit: (v: DataTable) => void, deleteProduct: (v: string, isModal: boolean) => void): DataBody => {
 
     return data.map((v, index): any => (
         [
@@ -24,11 +24,7 @@ export const tbody = (data: DataTable[], edit: (v: DataTable) => void): DataBody
                 <ContainerIconAction
                     className='pointer'
                     color='#FFDFDF'
-                    // onClick={() => {
-
-                    //     if (v.idestado === DESACTIVATED) return;
-                    //     void deleteUser(v.idusuario);
-                    // }}
+                    onClick={() => deleteProduct(v.code, true)}
                 >
                     <IoCloseOutline size={20} />
                 </ContainerIconAction>

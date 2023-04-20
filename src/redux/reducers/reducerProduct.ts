@@ -37,10 +37,21 @@ export const productsSlice = createSlice({
                 products,
             }
         },
+        setDeleteProduct: (state, { payload }: PayloadAction<string>): IInitState => {
+
+            const products = state.products.filter(v => v.code !== payload);
+
+            window.localStorage.setItem('product', JSON.stringify(products));
+
+            return {
+                ...state,
+                products,
+            }
+        },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { saveProduct, setEditProduct } = productsSlice.actions;
+export const { saveProduct, setEditProduct, setDeleteProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;
