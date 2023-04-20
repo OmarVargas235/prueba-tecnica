@@ -1,7 +1,7 @@
-export interface IDataTable {
-    code: number;
+interface IDataTable {
+    code: string;
     name: string;
-    description: string;
+    description?: string;
     stock: number;
     date: string;
 }

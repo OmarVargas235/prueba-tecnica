@@ -35,7 +35,6 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
         
         <div className='row d-flex align-items-center'>
             <TextField
-                type='number'
                 handleChange={e => handleChange(e, setForm, form)}
                 name='code'
                 value={form.code}
@@ -43,9 +42,9 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
                 classesContainerInput='input-radius'
                 label='Codigo'
                 isError={errors.includes('code')}
-                isReadOnly={isEdit}
                 helperText={errors.includes('code') ? "Codigo requerido" : ""}
                 colorHelperText="#D22F2F"
+                isReadOnly={true}
             />
 
             <TextField
@@ -56,7 +55,6 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
                 classesContainerInput='input-radius'
                 label='Nombre'
                 isError={errors.includes('name')}
-                isReadOnly={isEdit}
                 helperText={errors.includes('name') ? "Nombre requerido" : ""}
                 colorHelperText="#D22F2F"
             />
@@ -64,17 +62,16 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
             <TextField
                 handleChange={e => handleChange(e, setForm, form)}
                 name='description'
-                value={form.description}
+                value={form.description ?? ''}
                 classes={`col-6 mt-${errors.includes('stock') ? 0 : 4}`}
                 classesContainerInput='input-radius'
                 label='Descripción'
-                isReadOnly={isEdit}
             />
 
             <TextField
                 type='number'
                 handleChange={e => handleChange(e, setForm, form)}
-                name=''
+                name='stock'
                 value={form.stock}
                 classes='col-6 mt-4'
                 classesContainerInput='input-radius w-100'
@@ -85,8 +82,9 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
             />
 
             <TextField
+                type="date"
                 handleChange={e => handleChange(e, setForm, form)}
-                name=''
+                name='date'
                 value={form.date}
                 classes='col-12 mt-4'
                 classesContainerInput='input-radius w-100'
@@ -94,6 +92,7 @@ const FormCreateEditPage = ({ handleChange, onSubmit, handleSubmit, form, setFor
                 isError={errors.includes('date')}
                 helperText={errors.includes('date') ? "Fecha requerido" : ""}
                 colorHelperText="#D22F2F"
+                isReadOnly={true}
             />
         </div>
 

@@ -1,6 +1,6 @@
 // 1.- librerias
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // 2.- componentes
 import FormCreateEditPage from '../components/FormCreateEditPage';
@@ -11,22 +11,75 @@ import { useForm } from '../../../hooks/hookForm/useForm';
 
 // 4.- interfaces
 import { DataTable as Model } from '../../../helpers/interface';
+
+// 5.- redux
 import { RootState } from '../../../redux/reducers';
-import { IInitState } from '../../../redux/reducers/reducerUtils';
+import { IInitState as IInitStateUtils } from '../../../redux/reducers/reducerUtils';
+import { saveProduct, setEditProduct, IInitState as Product } from '../../../redux/reducers/reducerProduct';
+import { setIsActiveLoading } from '../../../redux/reducers/reducerBlockUI';
 
-const FormCreateEdit = (): JSX.Element => {
+// 6.- utils
+import { alert } from '../../../helpers/utils';
 
-    const { isEditProduct } = useSelector<RootState, IInitState>(state => state.utilsRedux);
+interface Props {
+    closeModal: (v: boolean) => void;
+}
 
-    const { handleSubmit, handleChange, validateFields, errors } = useForm<Model, RequeridFields>();
+const FormCreateEdit = ({ closeModal }: Props): JSX.Element => {
+
+    const dispatch = useDispatch();
+
+    const { isEditProduct, dataProduct } = useSelector<RootState, IInitStateUtils>(state => state.utilsRedux);
+    const { products } = useSelector<RootState, Product>(state => state.products);
+
+    const { handleSubmit, handleChange, validateFields, errors, setValuesDefault } = useForm<Model, RequeridFields>();
 
     const [form, setForm] = useState<Model>({
-        code: -1,
-        date: '',
+        code: "",
+        date: '2023-04-20',
+        // date: new Date().toLocaleDateString().split('/').reverse().join('/').replaceAll('/', '-'),
         description: '',
         name: '',
-        stock: -1
+        stock: 0
     });
+
+    useEffect(() => setValuesDefault('date', '2023-04-20'), []);
+
+    useEffect(() => {
+
+        if (!isEditProduct) return;
+        
+        setForm({
+            code: dataProduct.code,
+            date: '2023-04-20',
+            description: dataProduct.description,
+            name: dataProduct.name,
+            stock: dataProduct.stock
+        });
+
+        setValuesDefault('code', dataProduct.code);
+        setValuesDefault('description', dataProduct.description ?? '');
+        setValuesDefault('name', dataProduct.name);
+        setValuesDefault('date', '2023-04-20');
+        setValuesDefault('stock', dataProduct.stock);
+
+    }, [dataProduct, isEditProduct]);
+
+    useEffect(() => {
+
+        form.stock < 0 && setForm(state => ({ ...state, stock: Math.abs(form.stock) }));
+
+    }, [form.stock]);
+
+    useEffect(() => {
+
+        if (form.code.length === 0) return;
+
+        const isCodeNumber = isNaN(Number(form.code));
+
+        isCodeNumber && setForm(state => ({ ...state, code: form.code.slice(0, -1) }));
+
+    }, [form.code]);
 
     const onSubmit = async (model: object): Promise<void> => {
 
@@ -34,6 +87,23 @@ const FormCreateEdit = (): JSX.Element => {
         const isError: boolean = validateFields(newModel, [...requeridFields]);
         
         if (isError) return undefined;
+
+        const isCode = products.some(v => v.code === form.code);
+        
+        if (isCode && !isEditProduct)
+            return alert({ dispatch, isAlertSuccess: false, message: 'Ya existe un producto con el mismo codigo', isAlertWarning: true });
+
+        dispatch(setIsActiveLoading(true));
+
+        window.setTimeout(() => {
+
+            isEditProduct ? dispatch(setEditProduct(newModel)) : dispatch(saveProduct(newModel));
+            dispatch(setIsActiveLoading(false));
+            closeModal(false);
+
+            alert({ dispatch, isAlertSuccess: true, message: 'Producto creado con exito', isAlertWarning: false });
+
+        }, 1000);
     }
 
     return <FormCreateEditPage

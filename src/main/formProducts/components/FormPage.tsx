@@ -21,7 +21,9 @@ const FormPage = ({ isOpen, closeModal }: Props): JSX.Element => {
             isButton={false}
             width="700px"
         >
-            <FormCreateEdit />
+            <FormCreateEdit
+                closeModal={closeModal}
+            />
         </Modal>
     </Container>;
 }

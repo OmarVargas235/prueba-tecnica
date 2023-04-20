@@ -14,6 +14,7 @@ import { themeLight, themeDark } from './theme/theme';
 import Spinner from "./layauts/spinner/Spinner";
 const ListProducts = lazy(async () => await import("./main/listProducts"));
 const FormProducts = lazy(async () => await import("./main/formProducts"));
+const Alert = lazy(async () => await import("./layauts/alert/Alert"));
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -44,6 +45,9 @@ function App(): JSX.Element {
     return <Suspense fallback={<Spinner isLoading={true} />}>
 
         <GlobalStyle />
+
+        <Spinner />
+        <Alert />
 
         <ThemeProvider theme={isDark ? themeDark : themeLight}>
             <ListProducts />

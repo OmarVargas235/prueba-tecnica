@@ -8,17 +8,21 @@ import { Container } from "../styled";
 // 4.- utils
 import { thead, tbody } from "../utils";
 
+// 5.- interfaces
+import { DataTable } from "../../../helpers/interface";
+
 interface Props {
     handleClick: () => void;
-    edit: () => void;
+    edit: (v: DataTable) => void;
+    products: DataTable[];
 }
 
-const ListProductsPage = ({ handleClick, edit }: Props): JSX.Element => {
+const ListProductsPage = ({ handleClick, edit, products }: Props): JSX.Element => {
 
     return <Container>
         <Table
             thead={thead}
-            tbody={tbody([{ code: 123, date: '19/23/2024', description: 'description', name: "omar", stock: 21 }], edit)}
+            tbody={tbody(products, edit)}
             width='180px'
             refresh={()=>console.log('hola mundo')}
             add={handleClick}
